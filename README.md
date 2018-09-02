@@ -3,11 +3,10 @@
 As a coding exercise. this simple API helps customers find, hold and reserve venue seats.
 
 Assumptions:
-1. Total number of seats is 100
+1. Total number of seats is 100; there are 10 rows each of which has 10 seats
 2. The best seat location is in front
-3. The best group seats are adjacent if possible
-4. The best group seats are in the same row if possible
-5. Timeout for held seats is 5 seconds
+3. The best group seats are adjacent
+4. Timeout for held seats is 10 seconds
 
 ## Getting Started
 

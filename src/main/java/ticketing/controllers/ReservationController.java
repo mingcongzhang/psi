@@ -1,5 +1,6 @@
 package ticketing.controllers;
 
+import ticketing.entities.SeatHold;
 import ticketing.ticketservice.SeatData;
 import ticketing.ticketservice.TicketService;
 import org.json.JSONObject;
@@ -22,10 +23,10 @@ public class ReservationController {
         return jbt.toString();
     }
 
-    @RequestMapping(path="/resetSeatMap", method=RequestMethod.PUT)
+    @RequestMapping(path="/reset", method=RequestMethod.PUT)
     public @ResponseBody String resetSeatMap() {
         JSONObject jbt = new JSONObject();
-        SeatData.seatMap = new int[10][10];
+        SeatData.reset();
         jbt.put("test", SeatData.seatMap);
         return jbt.toString();
     }
@@ -49,8 +50,31 @@ public class ReservationController {
             jbt.put("reason", "not enough seats available");
             return ResponseEntity.badRequest().body(jbt.toString());
         } else {
-            ticketService.findAndHoldSeats(numSeats, customerEmail);
+            SeatHold seatHold = ticketService.findAndHoldSeats(numSeats, customerEmail);
             jbt.put("status", "success");
+            jbt.put("seatHoldId", seatHold.getSeatHoldId());
+            jbt.put("customerEmail", seatHold.getCustomerEmail());
+            jbt.put("seatMap", SeatData.seatMap);
+            return ResponseEntity.accepted().body(jbt.toString());
+        }
+    }
+
+    @RequestMapping(path="/reserveSeats", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity reserveSeats(@RequestParam int seatHoldId, @RequestParam String customerEmail) {
+        JSONObject jbt = new JSONObject();
+        if (seatHoldId < 1 || customerEmail == null) {
+            jbt.put("status", "failure");
+            jbt.put("reason", "missing numSeats or customerEmail");
+            return ResponseEntity.badRequest().body(jbt.toString());
+        } else {
+            String confirmationCode = ticketService.reserveSeats(seatHoldId, customerEmail);
+            if (confirmationCode == null) {
+                jbt.put("status", "failure");
+                jbt.put("reason", "incorrect email or seatHold has expired");
+                return ResponseEntity.badRequest().body(jbt.toString());
+            }
+            jbt.put("status", "success");
+            jbt.put("confirmationCode", confirmationCode);
             jbt.put("seatMap", SeatData.seatMap);
             return ResponseEntity.accepted().body(jbt.toString());
         }

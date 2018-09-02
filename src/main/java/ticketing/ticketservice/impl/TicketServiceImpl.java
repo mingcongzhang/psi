@@ -26,18 +26,13 @@ public class TicketServiceImpl implements ticketing.ticketservice.TicketService 
         if (numSeats < 1 || customerEmail == null) {
             return null;
         } else {
-            int[] startingSeat = new int[2];
             int adjacentSeatsCount = 0;
             for(int i = 0; i < SeatData.seatMap.length; i ++) {
                 for(int j = 0; j < SeatData.seatMap[i].length; j ++) {
-                    if (SeatData.seatMap[i][j] != 1) {
-                        if (adjacentSeatsCount == 0) {
-                            startingSeat[0] = i;
-                            startingSeat[1] = j;
-                        }
+                    if (SeatData.seatMap[i][j] == 0) {
+                        SeatData.seatMap[i][j] = SeatData.seatHoldId;
                         adjacentSeatsCount++;
                         if (adjacentSeatsCount == numSeats) {
-                            this.markSeatMap(numSeats, startingSeat, SeatData.seatHoldId);
                             SeatHold seatHold = new SeatHold(numSeats, SeatData.seatHoldId, customerEmail, SeatData.timeoutAmount);
                             SeatData.seatHoldMap.put(SeatData.seatHoldId, seatHold);
                             SeatData.seatHoldId++;
@@ -61,21 +56,12 @@ public class TicketServiceImpl implements ticketing.ticketservice.TicketService 
      * @return a reservation confirmation code
      */
     public String reserveSeats(int seatHoldId, String customerEmail) {
-        return null;
-    }
-
-    private void markSeatMap(int numOfSeats, int[] startingSeat, int seatHoldId) {
-        int numOfSeatsCount = 0;
-        outerloop:
-        for(int i = startingSeat[0]; i < SeatData.seatMap.length; i ++) {
-            for(int j = startingSeat[1]; j < SeatData.seatMap[i].length; j ++) {
-                SeatData.seatMap[i][j] = seatHoldId;
-                numOfSeatsCount++;
-                if (numOfSeatsCount == numOfSeats) {
-                    break outerloop;
-                }
-            }
+        String reservationCode = SeatData.seatHoldMap.get(seatHoldId).setReservation(customerEmail);
+        if (reservationCode != null) {
+            SeatData.seatReservedMap.put(seatHoldId, SeatData.seatHoldMap.get(seatHoldId));
+            SeatData.seatHoldMap.remove(seatHoldId);
         }
+        return reservationCode;
     }
 
 }

@@ -10,7 +10,8 @@ public class SeatHold {
     private int seatHoldId;
     private int numberOfSeatsHeld;
     private int timeLengthOfSeatsHeld;
-    private boolean valid;
+    private boolean holdValidity;
+    private boolean reserved;
     private String customerEmail;
     private Timestamp timeCreated;
     private Timestamp timeUpdated;
@@ -21,7 +22,7 @@ public class SeatHold {
             String customerEmail,
             int timeLengthOfSeatsHeld
     ) {
-        this.valid = true;
+        this.holdValidity = true;
         this.timeLengthOfSeatsHeld = timeLengthOfSeatsHeld;
         this.seatHoldId = seatHoldId;
         this.numberOfSeatsHeld = numberOfSeatsHeld;
@@ -78,23 +79,40 @@ public class SeatHold {
         this.customerEmail = customerEmail;
     }
 
+    public boolean isHoldValidity() {
+        return holdValidity;
+    }
+
+    public void setHoldValidity(boolean holdValidity) {
+        this.holdValidity = holdValidity;
+    }
+
+    public String setReservation(String customerEmail) {
+        if (this.holdValidity && customerEmail.equalsIgnoreCase(this.customerEmail)) {
+            this.reserved = true;
+            return this.getReservationConfirmationCode();
+        } else {
+            return null;
+        }
+    }
+
+    public String getReservationConfirmationCode() {
+        return String.valueOf(this.timeCreated.getTime()) + this.customerEmail;
+    }
+
     private Timestamp getCurrentUTCTimestamp() {
         return new Timestamp(System.currentTimeMillis() / 1000);
     }
 
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
 
     private void setTimeout() {
         try{
             Thread.sleep(this.timeLengthOfSeatsHeld);
-            this.valid = false;
-            this.updateSeatMap();
+            if (!this.reserved) {
+                this.holdValidity = false;
+                this.updateSeatMap();
+                SeatData.seatsOccupied -= this.numberOfSeatsHeld;
+            }
         }catch(InterruptedException e){
             e.printStackTrace();
         }
