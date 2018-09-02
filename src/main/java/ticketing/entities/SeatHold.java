@@ -1,22 +1,33 @@
 package ticketing.entities;
 
+import ticketing.ticketservice.SeatData;
+
 import java.sql.Timestamp;
+import java.util.concurrent.CompletableFuture;
 
 public class SeatHold {
 
     private int seatHoldId;
     private int numberOfSeatsHeld;
     private int timeLengthOfSeatsHeld;
+    private boolean valid;
     private String customerEmail;
     private Timestamp timeCreated;
     private Timestamp timeUpdated;
 
-    public SeatHold(int numberOfSeatsHeld, int seatHoldId, String customerEmail) {
+    public SeatHold(
+            int numberOfSeatsHeld,
+            int seatHoldId,
+            String customerEmail,
+            int timeLengthOfSeatsHeld
+    ) {
+        this.valid = true;
+        this.timeLengthOfSeatsHeld = timeLengthOfSeatsHeld;
         this.seatHoldId = seatHoldId;
         this.numberOfSeatsHeld = numberOfSeatsHeld;
         this.customerEmail = customerEmail;
         this.timeCreated = getCurrentUTCTimestamp();
-        this.timeUpdated =getCurrentUTCTimestamp();
+        CompletableFuture.runAsync(this::setTimeout);
     }
 
     public int getSeatHoldId() {
@@ -71,4 +82,38 @@ public class SeatHold {
         return new Timestamp(System.currentTimeMillis() / 1000);
     }
 
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    private void setTimeout() {
+        try{
+            Thread.sleep(this.timeLengthOfSeatsHeld);
+            this.valid = false;
+            this.updateSeatMap();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void updateSeatMap() {
+        int numOfSeatsCount = 0;
+        outerloop:
+        for(int i = 0; i < SeatData.seatMap.length; i ++) {
+            for(int j = 0; j < SeatData.seatMap[i].length; j ++) {
+                if (SeatData.seatMap[i][j] == seatHoldId) {
+                    SeatData.seatMap[i][j] = 0;
+                    numOfSeatsCount++;
+                }
+                if (numOfSeatsCount == this.numberOfSeatsHeld) {
+                    break outerloop;
+                }
+            }
+        }
+        SeatData.seatHoldMap.remove(this.seatHoldId);
+    }
 }

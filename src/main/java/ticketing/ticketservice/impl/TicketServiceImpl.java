@@ -38,7 +38,7 @@ public class TicketServiceImpl implements ticketing.ticketservice.TicketService 
                         adjacentSeatsCount++;
                         if (adjacentSeatsCount == numSeats) {
                             this.markSeatMap(numSeats, startingSeat, SeatData.seatHoldId);
-                            SeatHold seatHold = new SeatHold(numSeats, SeatData.seatHoldId, customerEmail);
+                            SeatHold seatHold = new SeatHold(numSeats, SeatData.seatHoldId, customerEmail, SeatData.timeoutAmount);
                             SeatData.seatHoldMap.put(SeatData.seatHoldId, seatHold);
                             SeatData.seatHoldId++;
                             SeatData.seatsOccupied += numSeats;

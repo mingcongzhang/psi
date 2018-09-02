@@ -7,6 +7,7 @@ Assumptions:
 2. The best seat location is in front
 3. The best group seats are adjacent if possible
 4. The best group seats are in the same row if possible
+5. Timeout for held seats is 5 seconds
 
 ## Getting Started
 
