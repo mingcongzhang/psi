@@ -1,6 +1,6 @@
 # Venue Ticketing
 
-As a coding exercise. this simple API helps customers find, hold and reserve venue seats.
+As a coding exercise, this simple API helps customers find, hold and reserve venue seats. It is frameworked by Spring Boot 2.
 
 Assumptions:
 1. Total number of seats is 100; there are 10 rows each of which has 10 seats
@@ -14,73 +14,48 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
 ```
-Give examples
+JDK 1.8 or later
+Gradle 4+
+Preferably IntelliJ IDEA
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Clone the code
 
 ```
-Give the example
+git clone git@github.com:mingcongzhang/ticketing.git
 ```
 
-And repeat
+## Run
 
+Build project
+```$xslt
+gradle build
 ```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+Run application
+```$xslt
+gradle bootRun
 ```
 
-### And coding style tests
+## API documentation
 
-Explain what these tests test and why
+A complete API documentation is in Swagger UI
 
 ```
-Give an example
+http://localhost:8080/swagger-ui.html#/
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [Gradle](https://gradle.org/) - Dependency Management
+* [Spring](https://spring.io/) - Used to generate Spring Boot Framework
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Alan Zhang**
 
 ## License
 
@@ -88,6 +63,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Thanks to Spring.io starter project
