@@ -16,14 +16,14 @@ public class ReservationController {
     @Autowired
     private TicketService ticketService;
 
-    @RequestMapping(path="/test", method=RequestMethod.GET)
+    @RequestMapping(path="/test", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody String test() {
         JSONObject jbt = new JSONObject();
         jbt.put("test", SeatData.seatMap);
         return jbt.toString();
     }
 
-    @RequestMapping(path="/reset", method=RequestMethod.PUT)
+    @RequestMapping(path="/reset", method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody String resetSeatMap() {
         JSONObject jbt = new JSONObject();
         SeatData.reset();
@@ -31,7 +31,7 @@ public class ReservationController {
         return jbt.toString();
     }
 
-    @RequestMapping(path="/numSeatsAvailable", method=RequestMethod.GET)
+    @RequestMapping(path="/numSeatsAvailable", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody String setTotalNumberOfSeats() {
         JSONObject jbt = new JSONObject();
         jbt.put("totalNumberOfSeats", ticketService.numSeatsAvailable());

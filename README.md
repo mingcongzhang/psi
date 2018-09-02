@@ -47,6 +47,12 @@ A complete API documentation is in Swagger UI
 http://localhost:8080/swagger-ui.html#/
 ```
 
+### Methods
+``POST /findAndHoldSeats``<br /> 
+``POST /reserveSeats``<br /> 
+``PUT /reset``<br /> 
+``GET /numSeatsAvailable``<br /> 
+``GET /test``<br /> 
 
 ## Built With
 
