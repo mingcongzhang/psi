@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class XMLIteration {
 
-    private static void backgroundCheck(Node node) {
+    static void backgroundCheck(Node node) {
         System.out.println(node.getNodeName());
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -30,12 +30,16 @@ public class XMLIteration {
         }
     }
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-                .newInstance();
-        DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document document = docBuilder.parse(new File("C:\\Users\\zmc88\\Project\\psi exercise\\src\\main\\java\\psi\\componentwise\\eval\\sample.xml"));
-        backgroundCheck(document.getDocumentElement());
+    public static void main(String[] args) {
+        try {
+            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+                    .newInstance();
+            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            Document document = docBuilder.parse(new File("C:\\Users\\zmc88\\Project\\psi exercise\\src\\main\\java\\psi\\componentwise\\eval\\sample.xml"));
+            backgroundCheck(document.getDocumentElement());
+        } catch (IOException | SAXException | ParserConfigurationException  e) {
+            System.out.println(e);
+        }
     }
 
 }

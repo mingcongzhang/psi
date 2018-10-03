@@ -3,9 +3,10 @@
 Update
  
  ```
-  Q1(DONE)
-  Q2(NOT REQUIRED)
-  Q3(IN PROGRESS)
+  Q1(DONE): psi.componentwise.eval.XMLIteration and psi.componentwise.eval.TestXMLIteration (will need to update path to your local path)
+  Q2(DONE): psi.componentwise.eval.UserKey
+  Q3(DONE): psi.componentwise.eval.TestQuestionFour
+  Q4(DONE): psi.componentwise.eval.TestQuestionFour
   ```
 
 

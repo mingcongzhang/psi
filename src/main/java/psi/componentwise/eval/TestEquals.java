@@ -17,6 +17,8 @@ public class TestEquals {
 		
 		assertEquals((key1.equals(key1) && key2.equals(key2)), true);
 		assertEquals(key1.hashCode() == key2.hashCode(), true);
+
+
 	}
 
 }
