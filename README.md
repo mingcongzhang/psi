@@ -1,12 +1,13 @@
-# Venue Ticketing
+# PSI Exercise
 
-As a coding exercise, this simple API helps customers find, hold and reserve venue seats. It is frameworked by Spring Boot 2.
+Update
+ 
+ ```
+  Q1(DONE)
+  Q2(NOT REQUIRED)
+  Q3(IN PROGRESS)
+  ```
 
-Assumptions:
-1. Total number of seats is 100; there are 10 rows each of which has 10 seats
-2. The best seat location is in front
-3. The best group seats are adjacent
-4. Timeout for held seats is 10 seconds
 
 ## Getting Started
 
@@ -16,6 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ```
 JDK 1.8 or later
+JUNIT 4.12
 Gradle 4+
 Preferably IntelliJ IDEA
 ```
@@ -25,7 +27,7 @@ Preferably IntelliJ IDEA
 Clone the code
 
 ```
-git clone git@github.com:mingcongzhang/ticketing.git
+git clone git@github.com:mingcongzhang/psi.git
 ```
 
 ## Run
@@ -46,13 +48,6 @@ A complete API documentation is in Swagger UI
 ```
 http://localhost:8080/swagger-ui.html#/
 ```
-
-### Methods
-``POST /findAndHoldSeats``<br /> 
-``POST /reserveSeats``<br /> 
-``PUT /reset``<br /> 
-``GET /numSeatsAvailable``<br /> 
-``GET /test``<br /> 
 
 ## Built With
 
